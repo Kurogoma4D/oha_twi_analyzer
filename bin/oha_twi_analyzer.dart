@@ -39,7 +39,15 @@ void main(List<String> arguments) async {
 
   print('All tweets: ${tweets.length}');
 
-  for (final t in tweets.take(30)) {
+  for (final t in tweets.take(5)) {
     print(t.toString());
   }
+
+  final tweetTexts = <String>{};
+
+  for (final t in tweets) {
+    tweetTexts.add(t.fullText);
+  }
+
+  print('All tweets (without duplicated): ${tweetTexts.length}');
 }
