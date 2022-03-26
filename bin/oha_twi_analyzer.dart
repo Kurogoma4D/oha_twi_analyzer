@@ -39,15 +39,22 @@ void main(List<String> arguments) async {
 
   print('All tweets: ${tweets.length}');
 
-  for (final t in tweets.take(5)) {
-    print(t.toString());
-  }
-
+  final tweetCount = <String, int>{};
   final tweetTexts = <String>{};
 
   for (final t in tweets) {
+    tweetCount[t.fullText] = (tweetCount[t.fullText] ?? 0) + 1;
     tweetTexts.add(t.fullText);
   }
 
-  print('All tweets (without duplicated): ${tweetTexts.length}');
+  final tweetList = tweetTexts.toList()
+    ..sort((a, b) => tweetCount[b]! - tweetCount[a]!);
+
+  print('All tweets (without duplicated): ${tweetCount.length}');
+
+  print('');
+
+  for (final tweet in tweetList) {
+    print('Count: ${tweetCount[tweet]} Tweet: $tweet');
+  }
 }
